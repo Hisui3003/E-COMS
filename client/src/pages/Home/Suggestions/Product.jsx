@@ -6,17 +6,17 @@ const Product = ({ image, name, offer, tag }) => {
             to="/products"
             className="flex flex-col items-center gap-1.5 p-6 cursor-pointer"
         >
-            <div className="w-36 h-36 transform hover:scale-110 transition-transform duration-150 ease-out">
+            <div className="transition-transform duration-150 ease-out transform w-36 h-36 hover:scale-110">
                 <img
                     draggable="false"
-                    className="w-full h-full object-contain"
+                    className="object-contain w-full h-full"
                     src={image}
                     alt={name}
                 />
             </div>
-            <h2 className="font-medium text-sm mt-2">{name}</h2>
-            <span className="text-primary-green text-sm">{offer}</span>
-            <span className="text-gray-500 text-sm">{tag}</span>
+            <h2 className="mt-2 text-sm font-medium">{name}</h2>
+            <span className="text-sm text-primary-green">{offer}</span>
+            <span className="text-sm text-gray-500">{tag}</span>
         </Link>
     );
 };
