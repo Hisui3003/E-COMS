@@ -232,7 +232,7 @@ const UpdateOrders = () => {
                                                     Seller: {seller?.name}
                                                 </p>
                                                 <span className="font-medium">
-                                                    ₹
+                                                ₱
                                                     {(
                                                         quantity * discountPrice
                                                     ).toLocaleString()}

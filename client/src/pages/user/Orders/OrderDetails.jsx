@@ -145,7 +145,7 @@ const OrderDetails = () => {
                                                     Seller: {seller?.name}
                                                 </p>
                                                 <span className="font-medium">
-                                                    ₹
+                                                ₱
                                                     {(
                                                         quantity * discountPrice
                                                     ).toLocaleString()}

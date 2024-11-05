@@ -130,9 +130,9 @@ const Product = ({
 
                         {/* <!-- price container --> */}
                         <div className="flex items-center gap-1.5 text-md font-medium">
-                            <span>₹{discountPrice.toLocaleString()}</span>
+                            <span>₱{discountPrice.toLocaleString()}</span>
                             <span className="text-gray-500 line-through text-xs">
-                                ₹{price.toLocaleString()}
+                                ₱{price.toLocaleString()}
                             </span>
                             <span className="text-xs text-primary-green">
                                 {getDiscount(price, discountPrice)}%&nbsp;off

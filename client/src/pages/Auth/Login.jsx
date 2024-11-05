@@ -98,35 +98,7 @@ const Login = () => {
                 <div className="container bg-primaryBg mt-5 sm:mt-0 md:mt-0 lg:mt-0 py-[2px]">
                     <div className="flex items-center flex-col sm:flex-row md:flow-row lg:flex-row my-10 mx-auto w-full sm:w-[70vw] md:w-[70vw] lg:w-[70vw] min-h-[400px] md:h-[80vh] lg:h-[80vh] bg-white shadow-[0px_0px_8px_2px_rgba(212,212,212,0.6)] ">
                         {/* left view  */}
-                        <div className=" w-full md:w-[40%] lg:w-[40%] h-full bg-primaryBlue">
-                            <div className="flex gap-2 md:gap-6 flex-col h-full mt-5 md:mt-10 px-6 ">
-                                <div className="text-white leading-8 text-[22px] font-[600]">
-                                    <h2>Log in</h2>
-                                </div>
-                                <div className="text-slate-300 text-base leading-7 font-[400]">
-                                    <p>
-                                        Get access to your Orders, Wishlist and
-                                        Recommendations
-                                    </p>
-
-                                    <p className="text-xs">
-                                        <span>
-                                            User <br />
-                                        </span>
-                                        username - test@test.com <br />
-                                        password - test123 <br />
-                                        <span>
-                                            Admin <br />
-                                        </span>
-                                        username - store@flipkart.com <br />
-                                        password - admin123
-                                    </p>
-                                </div>
-                                <div className="">
-                                    <img src={authImg} alt="auth image" />
-                                </div>
-                            </div>
-                        </div>
+                       
 
                         {/* sign up form */}
                         <div className="p-10 w-full h-full sm:w-[60%] md:w-[60%] lg:w-[60%] flex flex-col gap-y-10 ">
@@ -199,7 +171,7 @@ const Login = () => {
                                         <div className="text-[9px] text-slate-500 ">
                                             <p>
                                                 By continuing, you agree to
-                                                Flipkart&apos;s Terms of Use and
+                                                ActiveAttire&apos;s Terms of Use and
                                                 Privacy Policy.
                                             </p>
                                         </div>
@@ -226,7 +198,7 @@ const Login = () => {
                                     to="/register"
                                     className=" text-primaryBlue font-[500] text-[12px] "
                                 >
-                                    New to Flipkart? Create an account
+                                    New to ActiveAttire? Create an account
                                 </Link>
                             </div>
                         </div>

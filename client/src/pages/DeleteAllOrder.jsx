@@ -83,10 +83,10 @@ const DeleteAllOrder = () => {
                                 <strong>Brand:</strong> {product.brandName}
                             </p>
                             <p>
-                                <strong>Price:</strong> ₹{product.price}
+                                <strong>Price:</strong> ₱{product.price}
                             </p>
                             <p>
-                                <strong>Discounted Price:</strong> ₹
+                                <strong>Discounted Price:</strong> ₱
                                 {product.discountPrice}
                             </p>
                             <p>
@@ -105,7 +105,7 @@ const DeleteAllOrder = () => {
                         <strong>Order Status:</strong> {order.orderStatus}
                     </p>
                     <p>
-                        <strong>Total Amount:</strong> ₹{order.amount}
+                        <strong>Total Amount:</strong> ₱{order.amount}
                     </p>
                 </div>
             ))}
