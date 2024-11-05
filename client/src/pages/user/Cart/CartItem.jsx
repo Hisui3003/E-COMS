@@ -88,13 +88,13 @@ const CartItem = ({ product, inCart }) => {
                     {/* <!-- price desc --> */}
                     <div className="flex items-baseline gap-2 text-xl font-medium">
                         <span className="text-sm text-gray-500 line-through font-normal">
-                            ₹
+                        ₱
                             {(
                                 product?.price * product?.quantity
                             ).toLocaleString()}
                         </span>
                         <span>
-                            ₹
+                        ₱
                             {(
                                 product?.discountPrice * product?.quantity
                             ).toLocaleString()}

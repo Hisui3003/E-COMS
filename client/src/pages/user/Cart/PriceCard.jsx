@@ -15,7 +15,7 @@ const PriceCard = ({ cartItems }) => {
                     <p className="flex justify-between">
                         Price ({cartItems?.length} item){" "}
                         <span>
-                            ₹
+                        ₱
                             {cartItems
                                 .reduce(
                                     (sum, item) =>
@@ -29,7 +29,7 @@ const PriceCard = ({ cartItems }) => {
                     <p className="flex justify-between">
                         Discount{" "}
                         <span className="text-primary-green">
-                            - ₹
+                            - ₱
                             {cartItems
                                 .reduce(
                                     (sum, item) =>
@@ -50,7 +50,7 @@ const PriceCard = ({ cartItems }) => {
                     <p className="flex justify-between text-lg font-medium">
                         Total Amount{" "}
                         <span>
-                            ₹
+                        ₱
                             {cartItems
                                 .reduce(
                                     (sum, item) =>
@@ -64,7 +64,7 @@ const PriceCard = ({ cartItems }) => {
                     <div className="border border-dashed"></div>
 
                     <p className="font-medium text-primaryGreen">
-                        You will save ₹
+                        You will save ₱
                         {cartItems
                             .reduce(
                                 (sum, item) =>

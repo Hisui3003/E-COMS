@@ -353,11 +353,11 @@ const ProductDetails = () => {
                                         </span>
                                         <div className="flex items-baseline gap-2 text-3xl font-medium">
                                             <span className="text-gray-800">
-                                                ₹
+                                            ₱
                                                 {product?.discountPrice?.toLocaleString()}
                                             </span>
                                             <span className="text-base text-gray-500 line-through">
-                                                ₹
+                                            ₱
                                                 {product?.price?.toLocaleString()}
                                             </span>
                                             <span className="text-base text-primaryGreen">
@@ -449,7 +449,7 @@ const ProductDetails = () => {
                                             Delivery
                                         </p>
                                         <span>
-                                            Delivery by {getDeliveryDate()} | ₹
+                                            Delivery by {getDeliveryDate()} | ₱
                                             40
                                         </span>
                                     </div>

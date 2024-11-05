@@ -227,7 +227,7 @@ const ForgotPassword = () => {
                                         <div className="text-[9px] text-slate-500 ">
                                             <p>
                                                 By continuing, you agree to
-                                                Flipkart's Terms of Use and
+                                                ActiveAttire's Terms of Use and
                                                 Privacy Policy.
                                             </p>
                                         </div>

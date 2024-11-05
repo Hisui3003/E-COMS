@@ -54,13 +54,13 @@ const SaveForLaterItem = ({ product }) => {
                     {/* <!-- price desc --> */}
                     <div className="flex items-baseline gap-2 text-xl font-medium">
                         <span>
-                            ₹
+                        ₱
                             {(
                                 product?.price * product?.quantity
                             ).toLocaleString()}
                         </span>
                         <span className="text-sm text-gray-500 line-through font-normal">
-                            ₹
+                        ₱
                             {(
                                 product?.discountPrice * product?.quantity
                             ).toLocaleString()}

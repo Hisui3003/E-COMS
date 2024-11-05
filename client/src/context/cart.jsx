@@ -1,114 +1,135 @@
-import { useContext, createContext, useState, useEffect } from "react";
-import { toast } from "react-toastify";
+/* eslint-disable no-unused-vars */
+import CartItem from "./CartItem";
+import EmptyCart from "./EmptyCart";
+import { useCart } from "../../../context/cart";
+import SaveForLater from "./SaveForLater";
+import ScrollToTopOnRouteChange from "./../../../utils/ScrollToTopOnRouteChange";
+import SeoData from "../../../SEO/SeoData";
+import PriceCard from "./PriceCard";
+import { useAuth } from "../../../context/auth";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
-const CartContext = createContext();
+const Cart = () => {
+    const { auth } = useAuth();
+    //stripe details
+    const publishKey = import.meta.env.VITE_STRIPE_PUBLISH_KEY;
+    const secretKey = import.meta.env.VITE_STRIPE_SECRET_KEY;
+    let frontendURL = window.location.origin; // Get the frontend URL
+    const [cartItems, setCartItems, , , saveLaterItems] = useCart();
 
-// eslint-disable-next-line react/prop-types
-const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState([]);
-    const [saveLaterItems, setSaveLaterItems] = useState([]);
-    const [reload, setReload] = useState(false);
+    //PAYMENT USING STRIPE
+    const handlePayment = async () => {
+        const stripe = await loadStripe(publishKey);
 
-    useEffect(() => {
-        // localStorage.clear();
-        const cartItems = localStorage.getItem("cart");
-        if (cartItems) {
-            setCartItems(JSON.parse(cartItems));
-        }
-        const saveLaterItems = localStorage.getItem("saveLater");
-        if (saveLaterItems) {
-            setSaveLaterItems(JSON.parse(saveLaterItems));
-        }
-    }, [reload]);
-
-    const addItems = async (product, quantity = 1) => {
-        const existingItemIndex = cartItems.findIndex(
-            (item) => item.productId === product?.productId
-        );
-
-        if (existingItemIndex !== -1) {
-            // Create a copy of cartItems to avoid mutating state directly
-            const updatedCartItems = [...cartItems];
-
-            // Update the quantity of the existing item
-            updatedCartItems[existingItemIndex].quantity = quantity;
-
-            // Update the state with the new cart items
-            localStorage.setItem("cart", JSON.stringify(updatedCartItems));
-            setReload(!reload);
-        } else {
-            // Update the state and local storage with the new cart items
-            setCartItems([{ ...product, quantity }, ...cartItems]);
-            localStorage.setItem(
-                "cart",
-                JSON.stringify([{ ...product, quantity }, ...cartItems])
-            );
-            setReload(!reload);
-            toast.success("Product Added To Cart", {
-                style: {
-                    top: "40px",
-                },
-            });
-        }
-    };
-
-    const removeItems = (product) => {
-        const updatedCartItems = cartItems?.filter(
-            (item) => item.productId !== product.productId
-        );
-        // setCartItems(updatedCartItems);
-        localStorage.setItem("cart", JSON.stringify(updatedCartItems));
-        setReload(!reload);
-    };
-    const addLater = (product) => {
-        removeItems(product);
-        setSaveLaterItems([product, ...saveLaterItems]);
-        localStorage.setItem(
-            "saveLater",
-            JSON.stringify([product, ...saveLaterItems])
-        );
-        setReload(!reload);
-        toast.success("Product Saved To Later", {
-            style: {
-                top: "40px",
+        const response = await axios.post(
+            `${
+                import.meta.env.VITE_SERVER_URL
+            }/api/v1/user/create-checkout-session`,
+            {
+                products: cartItems,
+                frontendURL: frontendURL,
+                customerEmail: auth?.user?.email,
             },
-        });
-    };
-    const moveToCart = (product) => {
-        addItems(product, product?.quantity);
-        removeLater(product);
-    };
-    const removeLater = (product) => {
-        const updatedLaterItems = saveLaterItems?.filter(
-            (item) => item.productId !== product.productId
+            {
+                headers: {
+                    Authorization: auth?.token,
+                },
+            }
         );
-        setSaveLaterItems(updatedLaterItems);
-        localStorage.setItem("saveLater", JSON.stringify(updatedLaterItems));
-        setReload(!reload);
+        const session = response.data.session;
+        console.log("session: ", session);
+        //storing session id to retrieve payment details after successful
+        localStorage.setItem("sessionId", session.id);
+        const result = stripe.redirectToCheckout({
+            sessionId: session.id,
+        });
+        console.log("result: ", result);
+
+        if (result.error) {
+            console.log(result.error);
+        }
+    };
+
+    const placeOrderHandler = () => {
+        handlePayment();
     };
 
     return (
-        <CartContext.Provider
-            value={[
-                cartItems,
-                setCartItems,
-                addItems,
-                removeItems,
-                saveLaterItems,
-                addLater,
-                moveToCart,
-                removeLater,
-            ]}
-        >
-            {children}
-        </CartContext.Provider>
+        <>
+            <ScrollToTopOnRouteChange />
+            <SeoData title="Shopping Cart | Flipkart.com" />
+            <main className="w-full pt-5">
+                {/* <!-- row --> */}
+                <div className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-11/12 mt-0 sm:mt-4 m-auto ">
+                    {/* <!-- cart column --> */}
+                    <div className="flex-1">
+                        {/* <!-- cart items container --> */}
+                        <div className="flex flex-col shadow bg-white">
+                            <span className="font-medium text-lg px-2 sm:px-8 py-4 border-b">
+                                My Cart ({cartItems?.length})
+                            </span>
+                            {cartItems?.length === 0 ? (
+                                <EmptyCart />
+                            ) : (
+                                cartItems?.map((item, i) => (
+                                    <CartItem
+                                        product={item}
+                                        inCart={true}
+                                        key={i}
+                                    />
+                                ))
+                            )}
+                            {/* <!-- place order btn --> */}
+                            <div className="flex justify-between items-center sticky bottom-0 left-0 bg-white">
+                                {/* test card details */}
+                                <div
+                                    className={`text-xs p-2 ${
+                                        cartItems.length < 1
+                                            ? "hidden"
+                                            : "inline-block"
+                                    } w-full`}
+                                >
+                                   
+                                </div>
+
+                                <button
+                                    onClick={placeOrderHandler}
+                                    disabled={
+                                        cartItems.length < 1 ? true : false
+                                    }
+                                    className={`${
+                                        cartItems.length < 1
+                                            ? "hidden"
+                                            : "bg-orange"
+                                    } w-full sm:w-1/3 mx-2 sm:mx-6 my-4 py-4 font-medium text-white shadow hover:shadow-lg rounded-sm `}
+                                >
+                                    PLACE ORDER
+                                </button>
+                            </div>
+                            {/* <!-- place order btn --> */}
+                        </div>
+                        {/* <!-- cart items container --> */}
+
+                        {/* <!-- saved for later items container --> */}
+                        <div className="flex flex-col mt-5 shadow bg-white mb-8">
+                            <span className="font-medium text-lg px-2 sm:px-8 py-4 border-b">
+                                Saved For Later ({saveLaterItems?.length})
+                            </span>
+                            {saveLaterItems?.map((item, i) => (
+                                <SaveForLater product={item} key={i} />
+                            ))}
+                        </div>
+                        {/* <!-- saved for later container --> */}
+                    </div>
+                    {/* <!-- cart column --> */}
+
+                    <PriceCard cartItems={cartItems} />
+                </div>
+                {/* <!-- row --> */}
+            </main>
+        </>
     );
 };
 
-//custom hook->
-const useCart = () => {
-    return useContext(CartContext);
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-export { CartProvider, useCart };
+export default Cart;
