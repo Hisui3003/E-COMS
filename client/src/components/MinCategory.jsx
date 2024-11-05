@@ -16,16 +16,16 @@ const categories = [
 
 const MinCategory = () => {
     return (
-        <section className="hidden sm:block bg-white w-full px-2 sm:p-0 overflow-hidden border-b">
+        <section className="hidden w-full px-2 overflow-hidden bg-white border-b sm:block sm:p-0">
             <div className="flex items-center justify-between p-0.5">
                 {categories.map((el, i) => (
                     <Link
                         to="/products"
                         key={i}
-                        className="text-sm p-2 text-gray-800 font-medium hover:text-primaryBlue flex items-center gap-0.5 group"
+                        className="text-sm p-2 text-gray-800 font-medium hover:text-gray-500 flex items-center gap-0.5 group"
                     >
                         {el}
-                        <span className="text-gray-400 group-hover:text-primaryBlue group-hover:rotate-180 transition-all ease-out">
+                        <span className="text-gray-400 transition-all ease-out group-hover:text-gray-500 group-hover:rotate-180">
                             <ExpandMoreIcon sx={{ fontSize: "16px" }} />
                         </span>
                     </Link>
