@@ -65,8 +65,8 @@ const Cart = () => {
                     {/* <!-- cart column --> */}
                     <div className="flex-1">
                         {/* <!-- cart items container --> */}
-                        <div className="flex flex-col shadow bg-white">
-                            <span className="font-medium text-lg px-2 sm:px-8 py-4 border-b">
+                        <div className="flex flex-col bg-white shadow">
+                            <span className="px-2 py-4 text-lg font-medium border-b sm:px-8">
                                 My Cart ({cartItems?.length})
                             </span>
                             {cartItems?.length === 0 ? (
@@ -81,7 +81,7 @@ const Cart = () => {
                                 ))
                             )}
                             {/* <!-- place order btn --> */}
-                            <div className="flex justify-between items-center sticky bottom-0 left-0 bg-white">
+                            <div className="sticky bottom-0 left-0 flex items-center justify-between bg-white">
                                 {/* test card details */}
                                 <div
                                     className={`text-xs p-2 ${
@@ -112,8 +112,8 @@ const Cart = () => {
                         {/* <!-- cart items container --> */}
 
                         {/* <!-- saved for later items container --> */}
-                        <div className="flex flex-col mt-5 shadow bg-white mb-8">
-                            <span className="font-medium text-lg px-2 sm:px-8 py-4 border-b">
+                        <div className="flex flex-col mt-5 mb-8 bg-white shadow">
+                            <span className="px-2 py-4 text-lg font-medium border-b sm:px-8">
                                 Saved For Later ({saveLaterItems?.length})
                             </span>
                             {saveLaterItems?.map((item, i) => (
